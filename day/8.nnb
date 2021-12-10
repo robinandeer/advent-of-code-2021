@@ -1,0 +1,102 @@
+{
+    "cells": [
+        {
+            "language": "markdown",
+            "source": [
+                "# Day 8"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "const SEGMENT_COUNT_1 = 2;\nconst SEGMENT_COUNT_4 = 4;\nconst SEGMENT_COUNT_7 = 3;\nconst SEGMENT_COUNT_8 = 7;\n\nconst UNIQUE_SEGMENT_COUNTS = [\n  SEGMENT_COUNT_1,\n  SEGMENT_COUNT_4,\n  SEGMENT_COUNT_7,\n  SEGMENT_COUNT_8,\n];\n\nfunction calculcateUniqueSegments(lines: string[]) {\n  const outputLines = lines.map((line) => line.split(\"|\")[1].trim().split(\" \"));\n\n  const uniqueSegments = outputLines.map((line) => {\n    const segments = line.reduce((newSegments, segment) => {\n      if (UNIQUE_SEGMENT_COUNTS.includes(segment.length)) {\n        return [...newSegments, segment];\n      }\n      return newSegments;\n    }, []);\n\n    return segments;\n  }, []);\n\n  return uniqueSegments.reduce((sum, segments) => {\n    return sum + segments.length;\n  }, 0);\n}\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "import fs from \"fs\";\nconst lines = fs.readFileSync(\"./8-test-input.txt\", \"utf8\").split(\"\\n\");\ncalculcateUniqueSegments(lines);\n"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "text/plain",
+                            "value": [
+                                "\u001b[33m26\u001b[39m"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Part 1"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "import fs from \"fs\";\nconst linesPart1 = fs.readFileSync(\"./8-input.txt\", \"utf8\").split(\"\\n\");\ncalculcateUniqueSegments(linesPart1);"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "text/plain",
+                            "value": [
+                                "\u001b[33m239\u001b[39m"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Part 2"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "import fs from \"fs\";\nconst lines = fs.readFileSync(\"./8-test-input.txt\", \"utf8\").split(\"\\n\");\n\nfunction stringIntersection(a: string, b: string) {\n  return a.split(\"\").filter((char) => b.includes(char)).join(\"\");\n}\n\nfunction stringDifference(a: string, b: string) {\n  const intersection = stringIntersection(a, b);\n  return a.split(\"\").filter((char) => !intersection.includes(char)).join(\"\");\n}\n\nfunction decodeLine(line: string) {\n  const [inputRaw, outputRaw] = lines[0].split(\" | \");\n  const inputDigits = inputRaw.split(' ');\n  const outputDigits = outputRaw.split(' ');\n\n  const digit1 = inputDigits.find((segment) => segment.length === SEGMENT_COUNT_1);\n  const digit4 = inputDigits.find((segment) => segment.length === SEGMENT_COUNT_4);\n  const digit7 = inputDigits.find((segment) => segment.length === SEGMENT_COUNT_7);\n  const digit8 = inputDigits.find((segment) => segment.length === SEGMENT_COUNT_8);\n\n  const segmentCF = digit1\n  const segmentA = stringDifference(digit7, digit1)\n\n  const digit3 = inputDigits\n    .filter((segment) => segment.length === 5)\n    .find((segment) => stringDifference(segment, digit7).length === 2);\n\n  const segmentBE = stringDifference(digit8, digit3);\n  const segmentD = stringDifference(stringDifference(digit4, digit1), segmentBE);\n  const segmentG = stringDifference(stringDifference(digit3, digit7), segmentD);\n\n  const digit0 = stringDifference(digit8, segmentD);\n\n  // 0, 1, 3, 4, 7, 8\n}\n\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "linesPart1.split(\" | \");"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.error",
+                            "value": {
+                                "name": "TypeError",
+                                "message": "linesPart1.split is not a function",
+                                "stack": "    at <Cell 8> [1, 10]\n    at <Cell 8> [4, 46]\n    at Script.runInContext (node:vm:139:12)\n    at Script.runInNewContext (node:vm:144:17)\n    at Object.runInNewContext (node:vm:298:38)\n    at C (/Users/robinandeer/.vscode/extensions/donjayamanne.typescript-notebook-2.0.6/out/extension/server/index.js:2:113345)\n    at t.execCode (/Users/robinandeer/.vscode/extensions/donjayamanne.typescript-notebook-2.0.6/out/extension/server/index.js:2:114312)\n    at k.<anonymous> (/Users/robinandeer/.vscode/extensions/donjayamanne.typescript-notebook-2.0.6/out/extension/server/index.js:2:142156)\n    at k.emit (node:events:390:28)\n    at k.emit (node:domain:475:12)"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "typescript",
+            "source": [
+                ""
+            ],
+            "outputs": []
+        }
+    ]
+}
